@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adivinhação</title>
+    <script>
+        let numeroSorteado = Math.floor(Math.random() * 100) + 1; 
+
+        function adivinharNumero() {
+            let numeroUsuario = document.getElementById("numero").value; 
+            let resultado = document.getElementById("resultado");
+
+            if (numeroUsuario == numeroSorteado) {
+                resultado.innerHTML = "Parabéns! Você acertou o número!";
+            } else if (numeroUsuario > numeroSorteado) {
+                resultado.innerHTML = "O número digitado é MAIOR. Tente novamente!";
+            } else {
+                resultado.innerHTML = "O número digitado é MENOR. Tente novamente!";
+            }
+
+            document.getElementById("numero").value = ""; 
+        }
+    </script>
+</head>
+<body>
+    <h1>exercício 1</h1>
+    <p>Digite um número entre 1 e 100 e clique em "Adivinhe" para tentar acertar o número sorteado!</p>
+    
+    <input type="number" id="numero" min="1" max="100">
+    <button onclick="adivinharNumero()">Adivinhe</button>
+    
+    <p id="resultado"></p>
+</body>
+</html>
+
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Texto em Caixa Alta</title>
+    <script>
+        function transformarMaiusculas() {
+
+            let texto = document.getElementById("texto").value;
+            document.getElementById("texto").value = texto.toUpperCase();
+        }
+    </script>
+</head>
+<body>
+    <h1>exercício 2</h1>
+    <input type="text" id="texto" oninput="transformarMaiusculas()" placeholder="Digite algo aqui">
+</body>
+</html>
+
+
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tarefas</title>
+    <style>
+        .concluida {
+            text-decoration: line-through;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>exercício 3</h1>
+    
+    <input type="text" id="tarefa" placeholder="Digite uma tarefa">
+    <button onclick="adicionarTarefa()">Adicionar</button>
+
+    <ul id="listaTarefas"></ul>
+
+    <script>
+        function adicionarTarefa() {
+            var tarefa = document.getElementById("tarefa").value;
+            if (!tarefa) return; 
+
+            var li = document.createElement("li");
+            li.innerHTML = `<input type="checkbox" onclick="marcarConcluida(this)"> ${tarefa}`;
+            document.getElementById("listaTarefas").appendChild(li);
+            document.getElementById("tarefa").value = ""; 
+        }
+
+        function marcarConcluida(checkbox) {
+            if (checkbox.checked) {
+                checkbox.parentElement.classList.add("concluida");
+            } else {
+                checkbox.parentElement.classList.remove("concluida");
+            }
+        }
+    </script>
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escolha seu Personagem</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+
+        .personagem-img {
+            display: none;
+            margin-top: 20px;
+        }
+
+        img {
+            width: 150px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>exercício 4</h1>
+
+    <form id="form">
+        <label>
+            <input type="radio" name="personagem" value="mago"> Mago
+        </label><br>
+        <label>
+            <input type="radio" name="personagem" value="guerreiro"> Guerreiro
+        </label><br>
+        <label>
+            <input type="radio" name="personagem" value="arqueiro"> Arqueiro
+        </label><br><br>
+
+        <button type="button" onclick="confirmarEscolha()">Confirmar Escolha</button>
+    </form>
+
+    <p id="mensagem"></p>
+
+    <div id="imagemPersonagem" class="personagem-img">
+        <img id="imagem" src="" alt="Imagem do personagem">
+    </div>
+
+    <script>
+        function confirmarEscolha() {
+            const personagemSelecionado = document.querySelector('input[name="personagem"]:checked');
+            const mensagemElement = document.getElementById("mensagem");
+            const imagemElement = document.getElementById("imagemPersonagem");
+            const imagem = document.getElementById("imagem");
+
+            if (!personagemSelecionado) {
+                alert("Por favor, escolha um personagem!");
+                return;
+            }
+
+            const escolha = personagemSelecionado.value;
+            let mensagem = "";
+            let imagemSrc = "";
+
+            switch (escolha) {
+                case "mago":
+                    mensagem = "Você escolheu ser um Mago! Prepare-se para lançar feitiços!";
+                    imagemSrc = "https://preview.redd.it/pc-probably-90s-to-00s-magician-retro-game-v0-fvt8isoe4p1e1.png?width=1024&format=png&auto=webp&s=1f6d1a39434cb4589883a57b472dfdc036c9c186";
+                    break;
+                case "guerreiro":
+                    mensagem = "Você escolheu ser um Guerreiro! Prepare-se para batalhas épicas!";
+                    imagemSrc = "https://static.wikia.nocookie.net/nightupmare/images/0/0d/Guerreiro.png/revision/latest?cb=20190426170526&path-prefix=pt-br";
+                    break;
+                case "arqueiro":
+                    mensagem = "Você escolheu ser um Arqueiro! Prepare-se para acertar alvos distantes!";
+                    imagemSrc = "https://static.wikia.nocookie.net/tsrd/images/b/bc/Arqueiro.jpg/revision/latest?cb=20160921220229&path-prefix=pt-br";
+                    break;
+            }
+
+            mensagemElement.textContent = mensagem;
+            imagem.src = imagemSrc;
+            imagemElement.style.display = "block";
+        }
+    </script>
+</body>
+</html>
